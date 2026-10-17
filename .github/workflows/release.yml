@@ -1,12 +1,12 @@
-# Releases, flux develop → main (mode tag) : à chaque merge dans develop, la
-# PR de livraison develop → main est tenue à jour ; une préversion
-# vX.Y.Z-next.N est publiée le soir si develop a changé. Le vendredi matin (ou
-# à la main), une demande de livraison ; son merge, après revue, publie sur
-# main le tag vX.Y.Z et la release. Aucune version n'est écrite dans les
-# fichiers : elle est portée par le tag.
+# Releases, flux develop → main (mode tag), sans geste : chaque merge d'un
+# ticket dans develop (la validation humaine) publie une préversion
+# vX.Y.Z-next.N et tient à jour la PR de livraison develop → main ; la GitHub
+# App la merge dès que ses vérifications sont vertes (delivery-auto), ce qui
+# publie sur main le tag vX.Y.Z et la release. Aucune version n'est écrite
+# dans les fichiers : elle est portée par le tag.
 #
-# Prérequis : Settings → Actions → General → Workflow permissions →
-# « Allow GitHub Actions to create and approve pull requests ».
+# Prérequis : GitHub App (repowarden app init : variable
+# REPOWARDEN_APP_CLIENT_ID, secret REPOWARDEN_APP_KEY).
 name: release
 
 on:
@@ -38,6 +38,15 @@ jobs:
     with:
       mode: tag
       delivery-schedule: "0 7 * * 5" # même cron que la fenêtre ci-dessus
+      # À chaque ticket : préversion et demande de livraison à chaque merge ;
+      # livraison automatique : l'App merge la PR de livraison dès que ses
+      # vérifications sont vertes
+      preversion-on-push: true
+      delivery-on-push: true
+      delivery-auto: true
+      app-client-id: ${{ vars.REPOWARDEN_APP_CLIENT_ID }}
+    secrets:
+      app-key: ${{ secrets.REPOWARDEN_APP_KEY }}
 
   # Suivi des tickets : livrés en préversion → préprod ; publiés → done, fermés
   tickets:
