@@ -35,6 +35,7 @@ Versions are published automatically: [releases](https://github.com/simdevWarden
 ```bash
 npm install -g repowarden && repowarden install --global   # once per machine
 gh repo fork simdevWarden/repowarden-demo --clone && cd repowarden-demo
+# origin = your fork, upstream = simdevWarden/repowarden-demo
 # or: Fork button on GitHub, then git clone <you>/repowarden-demo
 ```
 
@@ -45,7 +46,7 @@ git switch -c feat/division
 # … edit src/calc/__init__.py, then:
 git add src/ && git cc             # commit assistant
 # or: git commit -am "division" → prefixed as "feat(division): division", code formatted by ruff
-git push -u origin feat/division   # tests (pytest) before sending
+git push -u origin feat/division   # to your fork; tests (pytest) before sending
 gh pr create --repo <you>/repowarden-demo --base develop   # PR in the fork, `repowarden` CI
 ```
 
