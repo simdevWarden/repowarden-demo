@@ -34,15 +34,24 @@ Versions are published automatically: [releases](https://github.com/simdevWarden
 
 ```bash
 npm install -g repowarden && repowarden install --global   # once per machine
-git clone https://github.com/simdevWarden/repowarden-demo && cd repowarden-demo
+gh repo fork simdevWarden/repowarden-demo --clone && cd repowarden-demo
+# or: Fork button on GitHub, then git clone <you>/repowarden-demo
+```
+
+In the fork, **Actions** tab → **"I understand my workflows, go ahead and enable them"**: once, otherwise the CI does not run.
+
+```bash
 git switch -c feat/division
 # … edit src/calc/__init__.py, then:
-git add . && git cc                # commit assistant
+git add src/ && git cc             # commit assistant
 # or: git commit -am "division" → prefixed as "feat(division): division", code formatted by ruff
 git push -u origin feat/division   # tests (pytest) before sending
+gh pr create --repo <you>/repowarden-demo --base develop   # PR in the fork, `repowarden` CI
 ```
 
 Without the hooks, the CI runs the same checks again and blocks the PR.
+
+**In a fork**: only the `repowarden` CI runs (default token); prereleases, deliveries and ticket tracking go through the original repository's GitHub App and do not run.
 
 ## Technologies supported by repowarden
 
