@@ -49,7 +49,7 @@ jobs:
       app-key: ${{ secrets.REPOWARDEN_APP_KEY }}
 
   # Suivi des tickets : livrés en préversion → préprod ; publiés → done, fermés ;
-  # et à une livraison sans nouvelle version (contenu déjà livré) → done, fermés
+  # et à une livraison sans nouvelle version (ni fix ni feat : aucun tag) → done, fermés
   tickets:
     needs: release
     if: needs.release.outputs.release_created == 'true' || needs.release.outputs.prerelease_created == 'true' || needs.release.outputs.delivered_without_version != ''
