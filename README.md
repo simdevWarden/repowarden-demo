@@ -9,7 +9,7 @@ Projet de démonstration de [repowarden](https://github.com/simdevWarden/repowar
 `calc` est une bibliothèque Python minimale, volontairement simple pour que l'attention reste sur l'outillage :
 
 ```text
-src/calc/__init__.py    add(a, b), mul(a, b) et puissance(a, b)
+src/calc/__init__.py    add(a, b), sub(a, b), mul(a, b) et div(a, b)
 tests/test_calc.py      tests pytest
 pyproject.toml          projet Python (version tenue à jour par les releases)
 CHANGELOG.md            généré à chaque release
@@ -42,12 +42,27 @@ gh repo fork simdevWarden/repowarden-demo --clone && cd repowarden-demo
 Dans le fork, onglet **Actions** → **« I understand my workflows, go ahead and enable them »** : une fois, sinon la CI ne tourne pas.
 
 ```bash
-git switch -c feat/division
-# … modifier src/calc/__init__.py, puis :
+git switch -c feat/puissance
+# … ajouter puissance dans src/calc/__init__.py, puis :
 git add src/ && git cc             # assistant de commit
-# ou : git commit -am "division" → préfixé en « feat(division): division », code formaté par ruff
-git push -u origin feat/division   # vers ton fork ; tests (pytest) avant l'envoi
+# ou : git commit -am "puissance" → préfixé en « feat(puissance): puissance », code formaté par ruff
+git push -u origin feat/puissance   # vers ton fork ; tests (pytest) avant l'envoi
 gh pr create --repo <toi>/repowarden-demo --base develop   # PR dans le fork, CI `repowarden`
+```
+
+Ce qu'on ajoute :
+
+```python
+# src/calc/__init__.py
+def puissance(a: int, b: int) -> int:
+    return a**b
+
+# tests/test_calc.py
+from calc import add, div, mul, puissance, sub
+
+
+def test_puissance():
+    assert puissance(2, 3) == 8
 ```
 
 Sans les hooks, la CI refait les mêmes vérifications et bloque la PR.
