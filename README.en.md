@@ -9,7 +9,7 @@ Demo project for [repowarden](https://github.com/simdevWarden/repowarden): a sma
 `calc` is a minimal Python library, deliberately simple so that the focus stays on the tooling:
 
 ```text
-src/calc/__init__.py    add(a, b) and mul(a, b)
+src/calc/__init__.py    add(a, b) and mul(a, b), puissance(a, b)
 tests/test_calc.py      pytest tests
 pyproject.toml          Python project (version kept up to date by releases)
 CHANGELOG.md            generated on each release

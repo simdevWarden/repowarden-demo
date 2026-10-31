@@ -9,7 +9,7 @@ Projet de démonstration de [repowarden](https://github.com/simdevWarden/repowar
 `calc` est une bibliothèque Python minimale, volontairement simple pour que l'attention reste sur l'outillage :
 
 ```text
-src/calc/__init__.py    add(a, b) et mul(a, b)
+src/calc/__init__.py    add(a, b), mul(a, b) et puissance(a, b)
 tests/test_calc.py      tests pytest
 pyproject.toml          projet Python (version tenue à jour par les releases)
 CHANGELOG.md            généré à chaque release
